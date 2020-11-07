@@ -11,7 +11,6 @@ class KaryawanModel extends Model
         $hasil = [];
 
         if($id_karyawan == ""){
-            
             $builder = $this->db->table('tb_karyawan');
             $builder->select('tb_karyawan.*,tb_divisi.divisi');
             $builder->join('tb_divisi', 'tb_divisi.id_divisi = tb_karyawan.id_divisi');

@@ -74,41 +74,6 @@ class Auth extends BaseController
 		return redirect()->to('/auth/index');
     }
 
-    //preprocessing
-    public function stemmer()
-    {
-    $stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();
-    $stemmer = $stemmerFactory->createStemmer();
-
-    $stopWordRemoverFactory = new \Sastrawi\StopWordRemover\StopWordRemoverFactory();
-    $stopword = $stopWordRemoverFactory->createStopWordRemover();
-    // stem
-    //$sentence = 'Perekonomian Indonesia sedang dalam pertumbuhan yang membanggakan';
-    $teks = "PERBAIKAN & TAMBAHAN MENU LAPORAN HRD 
-    1. Mohon ditambahkan pada menu 3.6 laporan karyawan non aktif untuk melihat tanggal non aktif dengan menampilkan kolom : No, Nip, Nama, Jabatan, kantor asal, tanggal non aktif
-    2. karyawan yang mengalami perubahan jabatan/ posisi kerja, perubahan kantor kerja, perubahan devisi kerja agar di munculkan kedalam menu laporan daftar riwayat kerja
-    3. Untuk memudahkan pembacaan laporan pada menu tersebut maka beberapa hal yang harus di perbaiki:
-    pada kolom jabatan di tambah kata perubahan sehingga sub jabatan menjadi perubahan jabatan
-    kolom sebelum bertukar tempat dengan kolom sekarang
-    kolom perubahan di hapus saja di ganti kolom tanggal perubahan/mutasi
-    sehingga sub pada kolom jabatan berisi : kolom sebelum, sekarang, tanggal perubahan, masa jabatan";
-
-    $teks = preg_replace('/[^A-Za-z0-9\-]/', ' ', $teks); // Removes special chars.
-    //bersihkan angka, ganti dengan space
-    $teks = strtr($teks, '0123456789', str_repeat(" ", 10));
-    //ubah ke huruf kecil
-    $teks = strtolower(trim($teks));
-
-    $outputstopword = $stopword->remove($teks);
-
-    $output = $stemmer->stem($outputstopword);
-    echo $output;
-    echo '<br>';
-    //ekonomi indonesia sedang dalam tumbuh yang bangga
-    echo $stemmer->stem('Menambahkan');
-    //mereka tiru
-    }
-
     public function login2()
     {
         if($this->request->getPost())
